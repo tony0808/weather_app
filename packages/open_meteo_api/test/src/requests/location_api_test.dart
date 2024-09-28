@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:open_meteo_api/src/exceptions/weather_exception.dart';
-import 'package:open_meteo_api/src/models/models.dart';
-import 'package:open_meteo_api/src/requests/weather_api.dart';
-import 'package:http/http.dart' as http;
+import 'package:open_meteo_api/src/models/location.dart';
+import 'package:open_meteo_api/src/requests/location_api.dart';
 
 class MockHttpClient extends Mock implements http.Client {}
 
@@ -12,8 +12,8 @@ class MockHttpResponse extends Mock implements http.Response {}
 class FakeUri extends Fake implements Uri {}
 
 void main() {
-  group('weather_api_requests', () {
-    late WeatherApi weatherApi;
+  group('location api requests', () {
+    late LocationApi locationApi;
     late http.Client httpClient;
 
     setUpAll(() {
@@ -22,44 +22,42 @@ void main() {
 
     setUp(() {
       httpClient = MockHttpClient();
-      weatherApi = WeatherApi(httpClient);
+      locationApi = LocationApi(httpClient);
     });
 
-    group('getWeather', () {
-      
-      const String lat = '42.354';
-      const String lon = '65.312';
+    group('getLocation', () {
+      const String city = 'chicago';
 
       const responseBody = '''{
-                                  "current_weather" : {
-                                    "temperature":20.2,
-                                    "weathercode":3
-                                  }
-                              }''';
+              "results" : [
+                  {
+                    "latitude" : 12.34,
+                    "longitude" : 56.78
+                  }
+              ]
+      }''';
 
-      test('succeeds to return weather', () async {
+      test('succeeds to return location', () async {
         final response = MockHttpResponse();
         when(() => response.statusCode).thenReturn(200);
         when(() => response.body).thenReturn(responseBody);
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
-        Weather weather = await weatherApi.getWeather(lat, lon);
+        Location location = await locationApi.getLocation(city);
 
         expect(
-          weather,
-          isA<Weather>()
-              .having((v) => v.temperature, 'temperature', 20.2)
-              .having((v) => v.weatherCode, 'weatherCode', 3),
+          location,
+          isA<Location>().having((v) => v.latitude, 'latitude', 12.34).having((v) => v.longitude, 'longitude', 56.78),
         );
       });
 
-      test('fails to fetch weather', () {
+      test('fails to fetch location', () {
         final response = MockHttpResponse();
         when(() => response.statusCode).thenReturn(400);
         when(() => response.body).thenReturn(responseBody);
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
-        expect(() async => weatherApi.getWeather(lat, lon), throwsA(isA<WeatherRequestException>()));
+        expect(() async => locationApi.getLocation(city), throwsA(isA<LocationRequestException>()));
       });
     });
   });
