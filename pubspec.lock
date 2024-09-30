@@ -180,7 +180,7 @@ packages:
     source: hosted
     version: "1.0.0"
   open_meteo_api:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "packages/open_meteo_api"
       relative: true

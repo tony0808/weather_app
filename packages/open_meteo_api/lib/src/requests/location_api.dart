@@ -14,22 +14,28 @@ class LocationApi {
   const LocationApi(http.Client client) : httpClient = client;
 
   Future<Location> getLocation(String city) async {
+      
     Map<String, dynamic> parameters = {
-      'city': city,
+      'name': city,
       'count': '1',
     };
 
     final url = Uri.https(_authority, _path, parameters);
 
     final response = await _getResponse(url);
+    
+    
     final jsonResponse = convert.jsonDecode(response.body);
 
     final location = Location.fromJson(jsonResponse);
+
+  
 
     return location;
   }
 
   Future<Response> _getResponse(Uri url) async {
+    
     final response = await httpClient.get(url);
 
     if(response.statusCode != 200) {

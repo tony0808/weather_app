@@ -3,8 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:weather/weather/models/weather.dart';
 import 'package:weather_repository/weather_repository.dart' hide Weather;
 
-import '../models/model.dart';
-
 part 'weather_event.dart';
 part 'weather_state.dart';
 
@@ -14,6 +12,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc(this._weatherRepository) : super(const WeatherState()) {
     on<WeatherRequestEvent>(_onWeatherRequest);
     on<ToggleTemperatureUnitsEvent>(_onToggleTemperatureUnits);
+    on<WeatherSearchAgainEvent>(_onSearchAgain);
   }
 
   Future<void> _onWeatherRequest(WeatherRequestEvent event, Emitter<WeatherState> emit) async {
@@ -47,6 +46,10 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         ),
       );
     }
+  }
+
+  void _onSearchAgain(WeatherSearchAgainEvent event, Emitter<WeatherState> emit) {
+    emit(state.copyWith(status: WeatherStatus.initial));
   }
 
   Future<Weather> _tryFetchWeather(String city) async {

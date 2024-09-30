@@ -15,3 +15,4 @@ class WeatherRequestEvent extends WeatherEvent {
 
 class ToggleTemperatureUnitsEvent extends WeatherEvent {}
 
+class WeatherSearchAgainEvent extends WeatherEvent {}
