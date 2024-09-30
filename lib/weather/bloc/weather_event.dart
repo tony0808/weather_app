@@ -13,6 +13,6 @@ class WeatherRequestEvent extends WeatherEvent {
   const WeatherRequestEvent(this.city);
 }
 
-class ToggleTemperatureUnitsEvent extends WeatherEvent {}
+class WeatherToggleUnitsEvent extends WeatherEvent {}
 
 class WeatherSearchAgainEvent extends WeatherEvent {}

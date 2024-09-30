@@ -4,7 +4,9 @@ import 'package:weather_repository/weather_repository.dart';
 
 enum TemperatureUnits {
   celsius,
-  fahreinheit,
+  fahreinheit;
+
+  bool get isCelsius => this == celsius;
 }
 
 class Weather extends Equatable {

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather/settings/view/settings_page.dart';
 import 'package:weather/weather/bloc/weather_bloc.dart';
+import 'package:weather/weather/widgets/condition_text.dart';
+import 'package:weather/weather/widgets/custom_divider.dart';
+import 'package:weather/weather/widgets/temperature_text.dart';
 import 'package:weather_repository/weather_repository.dart';
 
 class WeatherPopulated extends StatelessWidget {
@@ -36,7 +40,9 @@ class WeatherPopulated extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(SettingsPage.route());
+            },
             icon: const Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
               child: Icon(
@@ -51,64 +57,15 @@ class WeatherPopulated extends StatelessWidget {
       body: Container(
         alignment: Alignment.topCenter,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 240, 0, 0),
           child: Column(
             children: [
-              _TemperatureText(temperature),
-              _CustomDivider(),
-              _ConditionText(condition),
+              TemperatureText(temperature),
+              const CustomDivider(),
+              ConditionText(condition),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _CustomDivider extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 1,
-      width: 340,
-      color: const Color.fromARGB(255, 98, 98, 98),
-    );
-  }
-}
-
-class _ConditionText extends StatelessWidget {
-  final WeatherCondition condition;
-
-  const _ConditionText(this.condition);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      capitalize(condition.name.toString()),
-      style: const TextStyle(
-        fontSize: 96,
-        color: Color.fromARGB(255, 98, 98, 98),
-      ),
-    );
-  }
-
-  String capitalize(String str) {
-    return "${str[0].toUpperCase()}${str.substring(1).toLowerCase()}";
-  }
-}
-
-class _TemperatureText extends StatelessWidget {
-  final double temperature;
-
-  const _TemperatureText(this.temperature);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      temperature.toString(),
-      style: const TextStyle(
-        fontSize: 96,
-        color: Color.fromARGB(255, 98, 98, 98),
       ),
     );
   }

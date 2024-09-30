@@ -11,7 +11,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
 
   WeatherBloc(this._weatherRepository) : super(const WeatherState()) {
     on<WeatherRequestEvent>(_onWeatherRequest);
-    on<ToggleTemperatureUnitsEvent>(_onToggleTemperatureUnits);
+    on<WeatherToggleUnitsEvent>(_onToggleTemperatureUnits);
     on<WeatherSearchAgainEvent>(_onSearchAgain);
   }
 
@@ -30,7 +30,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     }
   }
 
-  void _onToggleTemperatureUnits(ToggleTemperatureUnitsEvent event, Emitter<WeatherState> emit) {
+  void _onToggleTemperatureUnits(WeatherToggleUnitsEvent event, Emitter<WeatherState> emit) {
     final units =
         (state.units == TemperatureUnits.fahreinheit) ? TemperatureUnits.celsius : TemperatureUnits.fahreinheit;
 
