@@ -11,21 +11,23 @@ class WeatherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WeatherBloc, WeatherState>(builder: (ctx, state) {
-      switch (state.status) {
-        case WeatherStatus.initial:
-          return const SearchPage();
-        case WeatherStatus.loading:
-          return const WeatherLoading();
-        case WeatherStatus.success:
-          return WeatherPopulated(
-            city: state.weather.location,
-            temperature: state.weather.temperature,
-            condition: state.weather.condition,
-          );
-        case WeatherStatus.failure:
-          return const WeatherFailure();
-      }
-    });
+    return BlocBuilder<WeatherBloc, WeatherState>(
+      builder: (ctx, state) {
+        switch (state.status) {
+          case WeatherStatus.initial:
+            return const SearchPage();
+          case WeatherStatus.loading:
+            return const WeatherLoading();
+          case WeatherStatus.success:
+            return WeatherPopulated(
+              city: state.weather.location,
+              temperature: state.weather.temperature,
+              condition: state.weather.condition,
+            );
+          case WeatherStatus.failure:
+            return const WeatherFailure();
+        }
+      },
+    );
   }
 }

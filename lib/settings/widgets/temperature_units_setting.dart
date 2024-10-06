@@ -24,24 +24,25 @@ class _Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherBloc, WeatherState>(
-        buildWhen: (previous, current) => previous.units != current.units,
-        builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Default Metric Unit', style: TextStyle(fontSize: 18)),
-                Switch(
-                  value: state.units.isCelsius,
-                  onChanged: (_) {
-                    context.read<WeatherBloc>().add(WeatherToggleUnitsEvent());
-                  },
-                )
-              ],
-            ),
-          );
-        });
+      buildWhen: (previous, current) => previous.units != current.units,
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Default Metric Unit', style: TextStyle(fontSize: 18)),
+              Switch(
+                value: state.units.isCelsius,
+                onChanged: (_) {
+                  context.read<WeatherBloc>().add(WeatherToggleUnitsEvent());
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 

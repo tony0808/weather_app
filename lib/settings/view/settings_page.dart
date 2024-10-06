@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather/settings/widgets/color_change_setting.dart';
 import 'package:weather/settings/widgets/temperature_units_setting.dart';
+import 'package:weather/theme/bloc/theme_bloc.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -10,18 +13,27 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: const BackButton(color: Colors.white),
-        backgroundColor: const Color.fromARGB(255, 98, 98, 98),
-        title: const Text(
-          'Settings',
-          style: TextStyle(color: Colors.white, fontSize: 32),
-        ),
-        centerTitle: true,
-      ),
-      body: const Column(children: [TemperatureUnitsSetting()],)
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            leading: const BackButton(color: Colors.white),
+            backgroundColor: state.appBarColor,
+            title: const Text(
+              'Settings',
+              style: TextStyle(color: Colors.white, fontSize: 32),
+            ),
+            centerTitle: true,
+          ),
+          body: const Column(
+            children: [
+              TemperatureUnitsSetting(),
+              ColorChangeSetting(),
+            ],
+          ),
+        );
+      },
     );
   }
 }
