@@ -9,42 +9,56 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: state.appBarColor,
-            title: const Text(
-              'Search',
-              style: TextStyle(color: Colors.white, fontSize: 32),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (context, state) {
+            return CustomAppBar(state.appBarColor);
+          },
+        ),
+      ),
+      body: Container(
+        alignment: Alignment.topCenter,
+        child: const Padding(
+          padding: EdgeInsets.only(top: 50),
+          child: CitySearchBar(),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomAppBar extends StatelessWidget {
+  final Color color;
+
+  const CustomAppBar(this.color, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: color,
+      title: const Text(
+        'Search',
+        style: TextStyle(color: Colors.white, fontSize: 32),
+      ),
+      centerTitle: true,
+      actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.of(context).push(SettingsPage.route());
+          },
+          icon: const Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
+            child: Icon(
+              Icons.settings,
+              size: 30,
+              color: Colors.white,
             ),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(SettingsPage.route());
-                },
-                icon: const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
-                  child: Icon(
-                    Icons.settings,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
           ),
-          body: Container(
-            alignment: Alignment.topCenter,
-            child: const Padding(
-              padding: EdgeInsets.only(top: 50),
-              child: CitySearchBar(),
-            ),
-          ),
-        );
-      },
+        ),
+      ],
     );
   }
 }

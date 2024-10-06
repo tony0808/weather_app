@@ -13,27 +13,42 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            leading: const BackButton(color: Colors.white),
-            backgroundColor: state.appBarColor,
-            title: const Text(
-              'Settings',
-              style: TextStyle(color: Colors.white, fontSize: 32),
-            ),
-            centerTitle: true,
-          ),
-          body: const Column(
-            children: [
-              TemperatureUnitsSetting(),
-              ColorChangeSetting(),
-            ],
-          ),
-        );
-      },
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (context, state) {
+            return CustomAppBar(state.appBarColor);
+          },
+        ),
+      ),
+      body: const Column(
+        children: [
+          TemperatureUnitsSetting(),
+          ColorChangeSetting(),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomAppBar extends StatelessWidget {
+
+  final Color color;
+
+  const CustomAppBar(this.color, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      leading: const BackButton(color: Colors.white),
+      backgroundColor: color,
+      title: const Text(
+        'Settings',
+        style: TextStyle(color: Colors.white, fontSize: 32),
+      ),
+      centerTitle: true,
     );
   }
 }
