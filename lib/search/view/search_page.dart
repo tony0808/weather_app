@@ -19,12 +19,17 @@ class SearchPage extends StatelessWidget {
           },
         ),
       ),
-      body: Container(
-        alignment: Alignment.topCenter,
-        child: const Padding(
-          padding: EdgeInsets.only(top: 50),
-          child: CitySearchBar(),
-        ),
+      body: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return Container(
+            color: state.backgroundColor,
+            alignment: Alignment.topCenter,
+            child: const Padding(
+              padding: EdgeInsets.only(top: 50),
+              child: CitySearchBar(),
+            ),
+          );
+        },
       ),
     );
   }

@@ -13,7 +13,7 @@ class ConditionText extends StatelessWidget {
       capitalize(condition.name.toString()),
       style: const TextStyle(
         fontSize: 64,
-        color: Color.fromARGB(255, 98, 98, 98),
+        color: Color.fromARGB(255, 0, 0, 0),
       ),
     );
   }

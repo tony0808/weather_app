@@ -16,7 +16,7 @@ class TemperatureText extends StatelessWidget {
           '${temperature.toInt().toString()} $degreeSign',
           style: const TextStyle(
             fontSize: 64,
-            color: Color.fromARGB(255, 98, 98, 98),
+            color: Color.fromARGB(255, 0, 0, 0),
           ),
         );
       },

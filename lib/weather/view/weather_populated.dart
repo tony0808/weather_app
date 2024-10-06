@@ -27,18 +27,23 @@ class WeatherPopulated extends StatelessWidget {
           },
         ),
       ),
-      body: Container(
-        alignment: Alignment.topCenter,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 240, 0, 0),
-          child: Column(
-            children: [
-              TemperatureText(temperature),
-              const CustomDivider(),
-              ConditionText(condition),
-            ],
-          ),
-        ),
+      body: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return Container(
+            alignment: Alignment.topCenter,
+            color: state.backgroundColor,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 240, 0, 0),
+              child: Column(
+                children: [
+                  TemperatureText(temperature),
+                  const CustomDivider(),
+                  ConditionText(condition),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

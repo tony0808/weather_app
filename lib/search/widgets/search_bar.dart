@@ -30,6 +30,7 @@ class _CitySearchBarState extends State<CitySearchBar> {
       width: 340,
       height: 40,
       decoration: BoxDecoration(
+        color: Colors.white,
         border: Border.all(
           width: 1,
           color: const Color.fromARGB(255, 175, 175, 175),

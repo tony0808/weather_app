@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:weather/theme/bloc/theme_bloc.dart';
 
-class ColorChangeSetting extends StatelessWidget {
-  const ColorChangeSetting({super.key});
+class BackgroundColorChangeSetting extends StatelessWidget {
+  const BackgroundColorChangeSetting({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +32,11 @@ class _Setting extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('AppBar Color', style: TextStyle(fontSize: 18)),
+              const Text('Background Color', style: TextStyle(fontSize: 18)),
               OutlinedButton(
                 style: ElevatedButton.styleFrom(
                   shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                  backgroundColor: Colors.white
                 ),
                 onPressed: () {
                   showDialog(
@@ -44,9 +45,9 @@ class _Setting extends StatelessWidget {
                       return AlertDialog(
                         title: const Text('Pick a Color'),
                         content: ColorPicker(
-                          pickerColor: state.appBarColor,
+                          pickerColor: state.backgroundColor,
                           onColorChanged: (color) {
-                            context.read<ThemeBloc>().add(ThemeChangeAppBarColorEvent(color));
+                            context.read<ThemeBloc>().add(ThemeChangeBackgroundColorEvent(color));
                           },
                         ),
                         actions: [

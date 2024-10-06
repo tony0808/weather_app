@@ -13,3 +13,9 @@ class ThemeChangeAppBarColorEvent extends ThemeEvent {
 
   const ThemeChangeAppBarColorEvent(this.appBarColor);
 }
+
+class ThemeChangeBackgroundColorEvent extends ThemeEvent {
+  final Color backgroundColor;
+
+  const ThemeChangeBackgroundColorEvent(this.backgroundColor);
+}
